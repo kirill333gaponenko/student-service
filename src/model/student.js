@@ -3,6 +3,6 @@ export class Student{
         this.id = id;
         this.name = name;
         this.password = password;
-        this.score = {};
+        this.score = [];
     }
 }

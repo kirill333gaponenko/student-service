@@ -41,19 +41,55 @@ export const updateStudent = (id, data) =>{
 
 }
 
-export const addScore = (id, exam, score) =>{
-    //TODO: Implement  score addition logic
+export const addScore = (id, exam) =>{
+
+    const student =students.get(id);
+    if (student) {
+        students.set(id,{...student, score: [...student.score,exam]});
+        console.log(students);
+        return true;
+    }
+    return false;
 
 }
 export const findByName = (name) =>{
-    //TODO: Implement  student retrieval by name logic
+    const studentByName =[]
+    for(const [id,student] of students) {
+        if(name === student.name) {
+            studentByName.push(student);
+        }
+    }
+    if(studentByName.length!==0){
+        return studentByName;
+    }
+
 
 }
 export const countByNames    = (names) =>{
-    //TODO: Implement  student count by name logic
+
+    let count = 0;
+    for(const [id,student] of students) {
+        for(const name of names) {
+            if(name === student.name) {
+                count++;
+            }
+        }
+    }
+    return count;
 
 }
 export const findByMinScore    = (exam, minScore) =>{
-    //TODO: Implement  score addition logic
+    const studentByMinScore =[]
+    for(const [id,student] of students) {
+        const studentExams = (student.score)
+        for(const studentExam of studentExams){
+            if(exam === studentExam.examName && minScore < studentExam.score){
+                studentByMinScore.push(student);
+            }
+        }
+    }
+    if(studentByMinScore.length!==0){
+        return studentByMinScore;
+    }
 
 }
