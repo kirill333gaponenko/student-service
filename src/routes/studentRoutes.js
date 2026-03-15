@@ -1,24 +1,22 @@
-import {Router} from 'express';
+import { Router } from "express";
 import {
     addScore,
-    addStudent,
-    deleteStudent,
+    addStudent, countByNames,
+    deleteStudent, findByMinScore,
     findByName,
-    findStudent, countByNames,
+    findStudent,
     updateStudent
 } from "../controller/studentController.js";
-import {findByMinScore} from "../repository/studentRepository.js";
-
 
 const router = Router();
 
-router.post('/student',addStudent)
+router.post('/student', addStudent);
 router.get('/student/:id', findStudent);
 router.delete('/student/:id', deleteStudent);
 router.patch('/student/:id', updateStudent);
 router.patch('/score/student/:id', addScore);
-router.get('/students/name/:name', findByName)
-router.get('/quantity/students', countByNames)
-router.get('students/exam/:exam/minscore/:minscore', findByMinScore)
+router.get('/students/name/:name', findByName);
+router.get('/quantity/students', countByNames);
+router.get('/students/exam/:exam/minscore/:minScore', findByMinScore);
 
 export default router;
