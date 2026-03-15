@@ -41,16 +41,13 @@ export const updateStudent = (id, data) =>{
 
 }
 
-export const addScore = (id, exam,score) =>{
-
-    const student =students.get(id);
+export const addScore = (id, exam, score) => {
+    const student = students.get(id);
     if (student) {
         student.score[exam] = score;
-
         return true;
     }
     return false;
-
 }
 export const findByName = (name) =>{
 
@@ -64,17 +61,7 @@ export const countByNames    = (names) =>{
 
 }
 export const findByMinScore    = (exam, minScore) =>{
-    const studentByMinScore =[]
-    for(const [id,student] of students) {
-        const studentExams = (student.score)
-        for(const studentExam of studentExams){
-            if(exam === studentExam.examName && minScore < studentExam.score){
-                studentByMinScore.push(student);
-            }
-        }
-    }
-    if(studentByMinScore.length!==0){
-        return studentByMinScore;
-    }
+
+    return Array.from(students.values()).filter(student => student.score[exam] >=minScore);
 
 }

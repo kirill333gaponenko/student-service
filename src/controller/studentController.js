@@ -39,22 +39,19 @@ export const updateStudent =(req, res) => {
     }
 }
 export const addScore = (req, res) => {
-    const success = repo.addScore(+req.params.id, req.body);
+    const success = repo.addScore(+req.params.id, req.body.examName, +req.body.score);
     if (success) {
         res.status(204).send();
-    }else{
+    } else {
         res.status(404).send();
     }
 }
 
 export const findByName = (req, res) => {
     const students = repo.findByName(req.params.name);
-    if (students) {
-        const {score, ...studentWithoutScores} = students;
-        res.json(studentWithoutScores);
-    }else{
-        res.status(404).send();
-    }
+    const {password, ...studentWithoutPassword} = students;
+    res.json(studentWithoutPassword);
+
 }
 export const countByNames = (req, res) => {
     const url =new URL(req.url, `http://localhost:8080`);
@@ -76,10 +73,7 @@ export const countByNames = (req, res) => {
 export const findByMinScore = (req, res) => {
 
     const student =  repo.findByMinScore(req.params.exam,req.params.minScore);
-    if (student) {
-        const {password, ...studentWithoutPassword} = student;
-        res.json(studentWithoutPassword);
-    }else{
-        res.status(404).send();
-    }
+    const studentWithoutPassword = student.map(student => ({...student,password:undefined}))
+    res.json(studentWithoutPassword);
+
 }
