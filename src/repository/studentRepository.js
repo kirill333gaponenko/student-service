@@ -50,8 +50,11 @@ export const findByName =  async (name) => {
 return (await collection.find({name}).toArray()).map(renameId);
 }
 
-export const countByNames = (names) => {
+export const countByNames = async (names) => {
 
+     // return (await Promise.all(names.map(name => collection.countDocuments({name})))).reduce((acc, curr) => acc + curr, 0);// it's my answer
+
+  return await collection.countDocuments({name:{$in: names}}); //it's the answer with ChatGPT
 
 }
 
