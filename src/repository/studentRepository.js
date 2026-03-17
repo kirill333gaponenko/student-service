@@ -45,17 +45,18 @@ export const addScore = async (id, exam, score) => {
 
 }
 
-export const findByName = (name) => {
+export const findByName =  async (name) => {
 
-
+return (await collection.find({name}).toArray()).map(renameId);
 }
 
 export const countByNames = (names) => {
-    //TODO Implement countByNames functionality
+
 
 }
 
 export const findByMinScore = async (exam, minScore) => {
+
     return (await collection.find({[`scores.${exam}`]:{$gte: minScore}}).toArray()).map(renameId);
 
 }
