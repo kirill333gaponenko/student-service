@@ -46,7 +46,8 @@ export const addScore = async (id, exam, score) => {
 }
 
 export const findByName = (name) => {
-    //TODO Implement findByName functionality
+
+
 }
 
 export const countByNames = (names) => {
