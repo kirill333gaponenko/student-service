@@ -1,11 +1,11 @@
 import Student from "../model/student.js";
 
 export function createStudent(student) {
-    return Student.create(student);
+     return Student.create(student);
 }
 
 export function findStudentById(id) {
-    return Student.findById(id);
+    return Student.findById(id).lean();
 }
 
 export function deleteStudentById(id) {
@@ -21,7 +21,7 @@ export function updateStudentScore(id, exam, score){
 }
 
 export function findStudentsByName(name) {
-    return Student.find({name: new RegExp(`^${name}$`, 'i')});
+    return Student.find({name: new RegExp(`^${name}$`, 'i')}).lean();
 }
 
 export function countStudentsByName(names) {
@@ -32,5 +32,5 @@ export function countStudentsByName(names) {
 }
 
 export function findStudentsMinScore(exam, minScore) {
-    return Student.find({[`scores.${exam}`]: {$gte: minScore}});
+    return Student.find({[`scores.${exam}`]: {$gte: minScore}}).lean();
 }

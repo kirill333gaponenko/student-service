@@ -37,7 +37,7 @@ export const updateStudent = async (req, res) => {
 
     const {error} = updateStudentSchema.validate(req.body)
     if (error) {
-        return res.status(400).send(error.details[0].message);
+        return res.status(400).send(error);
     }
 
     const student = await service.updateStudent(+req.params.id, req.body);
@@ -63,14 +63,14 @@ export const addScore = async (req, res) => {
     }
 }
 
-export const findByName = (req, res) => {
-    const students = service.findByName(req.params.name);
+export const findByName = async (req, res) => {
+    const students =  await service.findByName(req.params.name);
     res.json(students);
 }
 
-export const countByNames = (req, res) => {
+export const countByNames = async (req, res) => {
     const names = Array.isArray(req.query.names) ? req.query.names : [req.query.names];
-    const count = service.countByNames(names);
+    const count =  await service.countByNames(names);
     res.json(count)
 }
 
