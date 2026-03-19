@@ -1,5 +1,5 @@
 import * as service from '../service/studentService.js';
-import {addScoreSchema, addStudentSchema, updateStudentSchema} from "../validator/studentValidator.js";
+import { addStudentSchema, ScoreSchema, updateStudentSchema} from "../validator/studentValidator.js";
 
 export const addStudent = async (req, res) => {
     const {error} = addStudentSchema.validate(req.body)
@@ -27,8 +27,7 @@ export const deleteStudent = async (req, res) => {
 
     const student = await service.deleteStudent(+req.params.id);
     if (student) {
-        const {password, ...studentWithoutPassword} = student;
-        res.json(studentWithoutPassword);
+        res.json(student);
     } else {
         res.status(404).send();
     }
@@ -43,8 +42,7 @@ export const updateStudent = async (req, res) => {
 
     const student = await service.updateStudent(+req.params.id, req.body);
     if (student) {
-        const {scores, ...studentWithoutScores} = student;
-        res.json(studentWithoutScores);
+        res.json(student);
     } else {
         res.status(404).send();
     }
@@ -52,7 +50,7 @@ export const updateStudent = async (req, res) => {
 
 export const addScore = async (req, res) => {
 
-    const {error} = addScoreSchema.validate(req.body)
+    const {error} = ScoreSchema.validate(req.body)
     if (error) {
         return res.status(400).send(error.details[0].message);
     }
