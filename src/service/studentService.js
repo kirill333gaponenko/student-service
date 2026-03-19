@@ -26,6 +26,7 @@ export const deleteStudent = async (id) => {
 
     const student = await repo.findStudentById(id);
     if(student) {
+        student.password = undefined;
        return repo.deleteStudentById(id);
     }
 
