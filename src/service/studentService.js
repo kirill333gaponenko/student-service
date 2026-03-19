@@ -23,7 +23,11 @@ export const findStudent = async (id) =>{
 
 
 export const deleteStudent = async (id) => {
-    
+
+    const student = await repo.findStudentById(id);
+    if(student) {
+       return repo.deleteStudentById(id);
+    }
 
 }
 
