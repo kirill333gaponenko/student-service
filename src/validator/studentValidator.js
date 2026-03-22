@@ -5,7 +5,7 @@ export const addStudentSchema = joi.object({
 
     id:joi.number().integer().positive().required(),
     name:joi.string().required(),
-    password:joi.string().length(6).required(),
+    password:joi.string().required(),
 
 })
 
