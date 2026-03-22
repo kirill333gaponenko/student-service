@@ -1,5 +1,4 @@
 import * as repo from  "../repository/studentRepository.js"
-import {deleteStudentById} from "../repository/studentRepository.js";
 
 
 
@@ -32,7 +31,11 @@ export const deleteStudent = async (id) => {
 }
 
 export const updateStudent = async (id, data) => {
-    //TODO
+    const student = await repo.updateStudent(id, data);
+    if(student) {
+        student.scores = undefined;
+    }
+    return renameId(student);
 
 }
 
