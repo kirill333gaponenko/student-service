@@ -1,5 +1,6 @@
 import * as service from '../service/studentService.js';
 import { addStudentSchema, ScoreSchema, updateStudentSchema} from "../validator/studentValidator.js";
+import {NotFoundError} from "../errors/NotFoundError.js";
 
 export const addStudent = async (req, res) => {
     const {error} = addStudentSchema.validate(req.body)
@@ -16,11 +17,9 @@ export const addStudent = async (req, res) => {
 
 export const findStudent = async (req, res) => {
     const student = await service.findStudent(+req.params.id);
-    if (student) {
-        res.json(student);
-    } else {
-        res.status(404).send();
-    }
+    if (!student) {
+       throw new NotFoundError("student not found");
+    }  res.json(student);
 }
 
 export const deleteStudent = async (req, res) => {
