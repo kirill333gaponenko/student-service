@@ -13,15 +13,15 @@ export function deleteStudentById(id) {
 }
 
 export function updateStudent(id, data){
-    return Student.findByIdAndUpdate(id, data).lean().exec();
+    return Student.findByIdAndUpdate(id, data,{new:true}).lean().exec();
 }
 
 export function updateStudentScore(id, exam, score){
-    return Student.findByIdAndUpdate(id, {$set: {[`scores.${exam}`]: score}});
+    return Student.findByIdAndUpdate(id, {$set: {[`scores.${exam}`]: score}}).lean().exec();
 }
 
 export function findStudentsByName(name) {
-    return Student.find({name: new RegExp(`^${name}$`, 'i')});
+    return Student.find({name: new RegExp(`^${name}$`, 'i')}).lean().exec();
 }
 
 export function countStudentsByName(names) {
@@ -32,5 +32,5 @@ export function countStudentsByName(names) {
 }
 
 export function findStudentsMinScore(exam, minScore) {
-    return Student.find({[`scores.${exam}`]: {$gte: minScore}});
+    return Student.find({[`scores.${exam}`]: {$gte: minScore}}).lean().exec();
 }

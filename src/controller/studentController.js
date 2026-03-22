@@ -63,8 +63,8 @@ export const addScore = async (req, res) => {
     }
 }
 
-export const findByName = (req, res) => {
-    const students = service.findByName(req.params.name);
+export const findByName = async (req, res) => {
+    const students = await service.findByName(req.params.name);
     res.json(students);
 }
 
