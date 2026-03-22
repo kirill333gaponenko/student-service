@@ -23,7 +23,6 @@ export const deleteStudent = async (id) => {
 
     const student = await repo.findStudentById(id);
     if(student) {
-        student.password = undefined;
        await repo.deleteStudentById(id);
        return renameIdOne(student);
     }
@@ -35,7 +34,6 @@ export const updateStudent = async (id, data) => {
     if(student) {
         await repo.updateStudent(id,data)
         student = await repo.findStudentById(id);
-        student.password = undefined;
         return renameIdOne(student);
     }
 

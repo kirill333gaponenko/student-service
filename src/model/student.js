@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 const studentSchema = new mongoose.Schema({
     _id:{type:Number, required: true},
-    name:{type:String, required: true},
+    name:{type:String, required: true,trim:true},
     password:{type:Number, required: true},
     scores:{
         type:Map,

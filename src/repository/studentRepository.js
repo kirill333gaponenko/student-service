@@ -12,6 +12,13 @@ export function deleteStudentById(id) {
     return Student.findByIdAndDelete(id);
 }
 
+
+//exists()
+//updateOne()
+//insertMany()
+//deleteMany()
+
+
 export function updateStudent(id, data){
     return Student.findByIdAndUpdate(id, data);
 }

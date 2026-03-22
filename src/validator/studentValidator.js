@@ -3,9 +3,9 @@ import joi from 'joi';
 
 export const addStudentSchema = joi.object({
 
-    id:joi.number().integer().required(),
+    id:joi.number().integer().positive().required(),
     name:joi.string().required(),
-    password:joi.string().required(),
+    password:joi.string().length(6).required(),
 
 })
 
