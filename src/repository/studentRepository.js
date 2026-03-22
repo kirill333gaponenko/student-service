@@ -5,11 +5,11 @@ export function createStudent(student) {
 }
 
 export function findStudentById(id) {
-    return Student.findById(id);
+    return Student.findById(id).lean().exec();
 }
 
 export function deleteStudentById(id) {
-    return Student.findByIdAndDelete(id);
+    return Student.findByIdAndDelete(id).lean().exec();
 }
 
 export function updateStudent(id, data){

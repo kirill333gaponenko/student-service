@@ -14,16 +14,20 @@ export const addStudent = async ({id, name, password}) => {
 export const findStudent = async (id) =>{
 
     const student = await repo.findStudentById(id);
-    console.log(student)
     if(student) {
         student.password = undefined;
     }
-    return student;
+    return renameId(student);
 }
 
 
 export const deleteStudent = async (id) => {
-    
+    const  student = await repo.deleteStudentById(id);
+    if(student) {
+        student.password = undefined
+
+    }
+    return renameId(student);
 
 }
 
@@ -49,4 +53,12 @@ export const countByNames = (names) => {
 export const findByMinScore = async (exam, minScore) => {
     //TODO
 
+}
+
+function renameId(student){
+    if(student){
+        student.id =student._id;
+        delete student._id
+    }
+    return student;
 }
