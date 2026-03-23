@@ -1,50 +1,49 @@
 import * as service from '../service/studentService.js';
 import { addStudentSchema, ScoreSchema, updateStudentSchema} from "../validator/studentValidator.js";
 import {NotFoundError} from "../errors/NotFoundError.js";
+import {AppError} from "../errors/AppError.js";
 
 export const addStudent = async (req, res) => {
     const {error} = addStudentSchema.validate(req.body)
     if (error) {
-        return res.status(400).send(error.details[0].message);
+        throw new AppError(error.details[0].message,400);
     }
     const success =  await service.addStudent(req.body);
-    if (success) {
-        res.status(204).send();
-    } else {
-        res.status(409).send();
+    if (!success) {
+        throw new AppError('Student already exists', 409);
     }
+    res.status(204).send();
 }
 
 export const findStudent = async (req, res) => {
     const student = await service.findStudent(+req.params.id);
     if (!student) {
        throw new NotFoundError("student not found");
-    }  res.json(student);
+    }
+    res.json(student);
 }
 
 export const deleteStudent = async (req, res) => {
 
     const student = await service.deleteStudent(+req.params.id);
-    if (student) {
-        res.json(student);
-    } else {
-        res.status(404).send();
+    if (!student) {
+        throw new NotFoundError("student not found");
     }
+    res.json(student);
 }
 
 export const updateStudent = async (req, res) => {
 
     const {error} = updateStudentSchema.validate(req.body)
     if (error) {
-        return res.status(400).send(error);
+        throw new AppError(error.details[0].message,400);
     }
 
     const student = await service.updateStudent(+req.params.id, req.body);
-    if (student) {
-        res.json(student);
-    } else {
-        res.status(404).send();
+    if (!student) {
+        throw new NotFoundError("student not found");
     }
+    res.json(student);
 }
 
 export const addScore = async (req, res) => {

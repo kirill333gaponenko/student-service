@@ -1,11 +1,22 @@
 import joi from 'joi';
 
 
+const  passwordCharsValidator = (value,helpers) =>{
+    const uniqueChars = new Set(value);
+    if(value.length !== uniqueChars.size) {
+        return helpers.message("Passwords must not contain  repeated characters");
+    }
+    return value
+}
+
 export const addStudentSchema = joi.object({
 
     id:joi.number().integer().positive().required(),
     name:joi.string().required(),
-    password:joi.string().length(6).required(),
+    password:joi.string().min(6).required().custom(passwordCharsValidator).message({
+        'string.base':'The field must be a string',
+        'string.empty':'The password must not be empty'
+    }),
 
 })
 
