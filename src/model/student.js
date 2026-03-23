@@ -14,6 +14,19 @@ const studentSchema = new mongoose.Schema({
     }
 },{
     versionKey: false,
+    toJSON:{
+        transform: (doc, ret) => {
+            ret.id = doc._id;
+            delete ret._id;
+            delete ret.password;
+        }
+    },
+    toObject:{
+        transform: (doc, ret) => {
+            ret.id = doc._id;
+            delete ret._id;
+        }
+    }
 })
 
 const Student = mongoose.model('Student', studentSchema, 'college');

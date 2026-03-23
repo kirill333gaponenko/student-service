@@ -40,9 +40,9 @@ export const updateStudent = async (req, res) => {
         return res.status(400).send(error.details[0].message);
     }
 
-    const student = await service.updateStudent(+req.params.id, req.body);
+    const student = await service.updateStudent(+req.params.id, req.body); // get regular js object
     if (student) {
-        res.json(student);
+        res.json(student); // json transform this js object to just js object and using regular json.toStringify
     } else {
         res.status(404).send();
     }
