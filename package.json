@@ -5,12 +5,14 @@
   "type": "module",
   "scripts": {
     "start": "cross-env PORT=8000 node src/server.js",
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "keywords": [],
   "author": "Kirill",
   "license": "ISC",
   "dependencies": {
+    "@jest/globals": "^30.3.0",
     "cross-env": "^10.1.0",
     "express": "^5.2.1",
     "joi": "^18.0.2",
@@ -19,6 +21,7 @@
   "devDependencies": {
     "dotenv": "^17.3.1",
     "jest": "^30.3.0",
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.1.14",
+    "supertest": "^7.2.2"
   }
 }
