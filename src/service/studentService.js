@@ -21,7 +21,7 @@ export const findStudent = async (id) =>{
 export const deleteStudent = async (id) => await repo.deleteStudentById(id)
 
 export const updateStudent = async (id, data) => {
-    const student = (await repo.updateStudent(id, data)).toObject(); //convert document to regular js object
+    const student = (await repo.updateStudent(id, data))?.toObject(); //convert a document to a regular js object, but if there is not obj fun toObject() don't work
     if(student) {
         student.scores = undefined;
     }
