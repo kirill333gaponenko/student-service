@@ -69,7 +69,7 @@ export const findByName = async (req, res) => {
 }
 
 export const countByNames = (req, res) => {
-    const names = Array.isArray(req.query.names) ? req.query.names : [req.query.names];
+    const names = Array.isArray(req.query.names) ? req.query.names : [req.query.names]; //checking if names arr
     const count = service.countByNames(names);
     res.json(count)
 }
