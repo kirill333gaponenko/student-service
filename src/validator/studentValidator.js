@@ -1,30 +1,29 @@
-import joi from 'joi';
+import Joi from 'joi';
 
-
-const  passwordCharsValidator = (value,helpers) =>{
+const passwordCharsValidator = (value, helpers) => {
     const uniqueChars = new Set(value);
-    if(value.length !== uniqueChars.size) {
-        return helpers.message("Passwords must not contain  repeated characters");
+    if (value.length !== uniqueChars.size) {
+        return helpers.message("Passwords must not contain repeated characters");
     }
-    return value
+    return value;
 }
 
-export const addStudentSchema = joi.object({
+export const addStudentSchema = Joi.object({
+    id: Joi.number().integer().required(),
+    name: Joi.string().required(),
+    password: Joi.string().required().custom(passwordCharsValidator).messages({
+        'string.base': 'The field must be a string',
+        'string.empty': 'The password must not be empty',
 
-    id:joi.number().integer().positive().required(),
-    name:joi.string().required(),
-    password:joi.string().min(6).required().custom(passwordCharsValidator).message({
-        'string.base':'The field must be a string',
-        'string.empty':'The password must not be empty'
     }),
-
 })
 
-export const updateStudentSchema = joi.object({
-    name:joi.string(),
-    password:joi.string(),
+export const updateStudentSchema = Joi.object({
+    name: Joi.string(),
+    password: Joi.string().custom(passwordCharsValidator)
 })
-export const ScoreSchema = joi.object({
-    examName:joi.string().required(),
-    score:joi.number().integer().min(0).max(100).required(),
+
+export const scoreSchema = Joi.object({
+    examName: Joi.string().required(),
+    score: Joi.number().integer().min(0).max(100).required()
 })
